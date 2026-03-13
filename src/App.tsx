@@ -63,6 +63,8 @@ const BackgroundEffects = () => {
 
 export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     fullName: '',
     companyName: '',
@@ -75,9 +77,38 @@ export default function App() {
     agreed: false
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    setError(null);
+
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtJlN22092j2Dqr3DAhojv-_gcLZ8iibGrIEovmUeSzEL6pW03rnDdsRENFRPV-xjM/exec';
+
+    try {
+      // Create a form data object to send
+      const data = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        data.append(key, value.toString());
+      });
+
+      // Send the request to Google Apps Script
+      // Using no-cors because Apps Script redirects can cause CORS issues in some browsers
+      // even if the script itself is public.
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: data,
+        mode: 'no-cors'
+      });
+
+      // Since we use no-cors, we can't read the response, 
+      // but if it doesn't throw, we assume success for this specific use case.
+      setIsSubmitted(true);
+    } catch (err) {
+      console.error('Submission error:', err);
+      setError('Une erreur est survenue lors de l\'envoi. Veuillez réessayer.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -257,11 +288,29 @@ export default function App() {
                     </label>
                   </div>
 
+                  {error && (
+                    <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
+                      {error}
+                    </div>
+                  )}
+
                   <button 
                     type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-blue-600/20 flex items-center justify-center gap-2"
+                    disabled={isSubmitting}
+                    className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-blue-600/20 flex items-center justify-center gap-2"
                   >
-                    Confirmer l'Inscription
+                    {isSubmitting ? (
+                      <>
+                        <motion.div 
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                        />
+                        Envoi en cours...
+                      </>
+                    ) : (
+                      "Confirmer l'Inscription"
+                    )}
                   </button>
                 </motion.form>
               ) : (
