@@ -63,7 +63,6 @@ const BackgroundEffects = () => {
 
 export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     companyName: '',
@@ -76,41 +75,9 @@ export default function App() {
     agreed: false
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const scriptUrl = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
-      
-      if (scriptUrl) {
-        // Prepare data for Google Sheets
-        const data = new FormData();
-        data.append('fullName', formData.fullName);
-        data.append('companyName', formData.companyName);
-        data.append('jobTitle', formData.jobTitle);
-        data.append('email', formData.email);
-        data.append('phone', formData.phone);
-        data.append('preferredDay', formData.preferredDay);
-        data.append('preferredTime', formData.preferredTime);
-        data.append('message', formData.message);
-        data.append('date', new Date().toLocaleString());
-
-        await fetch(scriptUrl, {
-          method: 'POST',
-          body: data,
-          mode: 'no-cors' // Important for Google Apps Script
-        });
-      }
-
-      setIsSubmitted(true);
-    } catch (error) {
-      console.error('Submission error:', error);
-      // Fallback to success UI even if script fails to not block user
-      setIsSubmitted(true);
-    } finally {
-      setIsSubmitting(false);
-    }
+    setIsSubmitted(true);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -292,17 +259,9 @@ export default function App() {
 
                   <button 
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-blue-600/20 flex items-center justify-center gap-2"
+                    className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-blue-600/20 flex items-center justify-center gap-2"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Envoi en cours...
-                      </>
-                    ) : (
-                      "Confirmer l'Inscription"
-                    )}
+                    Confirmer l'Inscription
                   </button>
                 </motion.form>
               ) : (
