@@ -18,6 +18,7 @@ export default function App() {
     email: '',
     phone: '',
     preferredDay: '7 Avril',
+    preferredTime: '10:00',
     message: '',
     agreed: false
   });
@@ -122,22 +123,6 @@ export default function App() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-300">Jour de Visite Souhaité</label>
-                      <select 
-                        name="preferredDay"
-                        value={formData.preferredDay}
-                        onChange={handleInputChange}
-                        className="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
-                      >
-                        <option value="7 Avril">7 Avril 2026</option>
-                        <option value="8 Avril">8 Avril 2026</option>
-                        <option value="9 Avril">9 Avril 2026</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
                       <label className="text-sm font-medium text-slate-300">Adresse E-mail</label>
                       <input 
                         required
@@ -149,6 +134,9 @@ export default function App() {
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                       />
                     </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-sm font-medium text-slate-300">Numéro de Téléphone</label>
                       <input 
@@ -160,6 +148,38 @@ export default function App() {
                         placeholder="+212 6 00 00 00 00"
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                       />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-300">Jour</label>
+                        <select 
+                          name="preferredDay"
+                          value={formData.preferredDay}
+                          onChange={handleInputChange}
+                          className="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                        >
+                          <option value="7 Avril">7 Avril</option>
+                          <option value="8 Avril">8 Avril</option>
+                          <option value="9 Avril">9 Avril</option>
+                        </select>
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-300">Heure</label>
+                        <select 
+                          name="preferredTime"
+                          value={formData.preferredTime}
+                          onChange={handleInputChange}
+                          className="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                        >
+                          <option value="10:00">10:00</option>
+                          <option value="11:00">11:00</option>
+                          <option value="12:00">12:00</option>
+                          <option value="13:00">13:00</option>
+                          <option value="14:00">14:00</option>
+                          <option value="15:00">15:00</option>
+                          <option value="16:00">16:00</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
 
@@ -209,7 +229,7 @@ export default function App() {
                   </div>
                   <h3 className="text-2xl font-bold mb-4">Inscription Réussie !</h3>
                   <p className="text-slate-400 mb-8 max-w-md mx-auto">
-                    Merci pour votre inscription ! Notre équipe vous contactera prochainement à l'adresse {formData.email} pour confirmer votre visite.
+                    Merci pour votre inscription ! Notre équipe vous contactera prochainement à l'adresse {formData.email} pour confirmer votre visite le {formData.preferredDay} à {formData.preferredTime}.
                   </p>
                   <button 
                     onClick={() => setIsSubmitted(false)}
