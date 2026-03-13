@@ -87,12 +87,9 @@ export default function App() {
     try {
       // Create a form data object to send
       const data = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        data.append(key, value.toString());
-      });
       
-      // Add the current date and time
-      data.append('submissionDate', new Date().toLocaleString('fr-FR', {
+      // Map keys to match the Excel/Google Sheet headers exactly
+      data.append('Date', new Date().toLocaleString('fr-FR', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric',
@@ -100,6 +97,14 @@ export default function App() {
         minute: '2-digit',
         second: '2-digit'
       }));
+      data.append('Nom Complet', formData.fullName);
+      data.append('Entreprise', formData.companyName);
+      data.append('Poste', formData.jobTitle);
+      data.append('Email', formData.email);
+      data.append('Téléphone', formData.phone);
+      data.append('Jour', formData.preferredDay);
+      data.append('Heure', formData.preferredTime);
+      data.append('Message', formData.message);
 
       // Send the request to Google Apps Script
       // Using no-cors because Apps Script redirects can cause CORS issues in some browsers
