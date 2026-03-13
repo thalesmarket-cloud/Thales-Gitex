@@ -14,6 +14,25 @@
 .tech-gradient {
   background: radial-gradient(circle at top right, rgba(30, 64, 175, 0.2), transparent),
               radial-gradient(circle at bottom left, rgba(15, 23, 42, 1), rgba(30, 58, 138, 0.3));
+  position: relative;
+}
+
+.tech-grid {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-20px) translateX(10px); }
+  50% { transform: translateY(-10px) translateX(20px); }
+  75% { transform: translateY(10px) translateX(-10px); }
+}
+
+.animate-float {
+  animation: float 15s infinite ease-in-out;
 }
 
 .glass-card {

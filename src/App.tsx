@@ -9,8 +9,61 @@ import {
   CheckCircle2
 } from 'lucide-react';
 
+const BackgroundEffects = () => {
+  return (
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+      {/* Grid Background */}
+      <div className="absolute inset-0 tech-grid opacity-30" />
+      
+      {/* Animated Glows */}
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.2, 1],
+          opacity: [0.1, 0.2, 0.1],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-600/20 blur-[120px] rounded-full" 
+      />
+      <motion.div 
+        animate={{ 
+          scale: [1.2, 1, 1.2],
+          opacity: [0.1, 0.15, 0.1],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-600/20 blur-[120px] rounded-full" 
+      />
+
+      {/* Floating Tech Particles */}
+      {[...Array(15)].map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ 
+            x: Math.random() * 100 + "%", 
+            y: Math.random() * 100 + "%",
+            opacity: Math.random() * 0.3 + 0.1
+          }}
+          animate={{ 
+            y: [null, "-=100", "+=100"],
+            x: [null, "+=50", "-=50"],
+          }}
+          transition={{ 
+            duration: Math.random() * 20 + 20, 
+            repeat: Infinity, 
+            ease: "linear" 
+          }}
+          className="absolute w-1 h-1 bg-blue-400 rounded-full"
+          style={{
+            boxShadow: '0 0 10px rgba(96, 165, 250, 0.8)'
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     companyName: '',
@@ -23,9 +76,41 @@ export default function App() {
     agreed: false
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+
+    try {
+      const scriptUrl = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
+      
+      if (scriptUrl) {
+        // Prepare data for Google Sheets
+        const data = new FormData();
+        data.append('fullName', formData.fullName);
+        data.append('companyName', formData.companyName);
+        data.append('jobTitle', formData.jobTitle);
+        data.append('email', formData.email);
+        data.append('phone', formData.phone);
+        data.append('preferredDay', formData.preferredDay);
+        data.append('preferredTime', formData.preferredTime);
+        data.append('message', formData.message);
+        data.append('date', new Date().toLocaleString());
+
+        await fetch(scriptUrl, {
+          method: 'POST',
+          body: data,
+          mode: 'no-cors' // Important for Google Apps Script
+        });
+      }
+
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Submission error:', error);
+      // Fallback to success UI even if script fails to not block user
+      setIsSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -36,12 +121,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen tech-gradient selection:bg-blue-500/30">
+      <BackgroundEffects />
       {/* Hero Section */}
       <section className="relative pt-20 pb-10 overflow-hidden flex flex-col items-center">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/30 blur-[120px] rounded-full" />
-        </div>
-        
         <div className="max-w-4xl mx-auto px-6 relative z-10 w-full flex flex-col items-center">
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
@@ -57,8 +139,6 @@ export default function App() {
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="absolute -top-6 -right-6 w-32 h-32 bg-blue-500/20 blur-3xl rounded-full" />
-            <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-indigo-500/20 blur-3xl rounded-full" />
           </motion.div>
         </div>
       </section>
@@ -212,9 +292,17 @@ export default function App() {
 
                   <button 
                     type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-blue-600/20 flex items-center justify-center gap-2"
+                    disabled={isSubmitting}
+                    className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-blue-600/20 flex items-center justify-center gap-2"
                   >
-                    Confirmer l'Inscription
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Envoi en cours...
+                      </>
+                    ) : (
+                      "Confirmer l'Inscription"
+                    )}
                   </button>
                 </motion.form>
               ) : (
