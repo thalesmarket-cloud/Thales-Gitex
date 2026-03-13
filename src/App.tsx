@@ -66,7 +66,6 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
-    Date: '',
     fullName: '',
     companyName: '',
     jobTitle: '',
