@@ -85,11 +85,11 @@ export default function App() {
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtJlN22092j2Dqr3DAhojv-_gcLZ8iibGrIEovmUeSzEL6pW03rnDdsRENFRPV-xjM/exec';
 
     try {
-      // Create a form data object to send
-      const data = new FormData();
+      // Use URLSearchParams for better compatibility with Google Apps Script
+      const params = new URLSearchParams();
       
-      // Map keys to match the Excel/Google Sheet headers exactly
-      data.append('Date', new Date().toLocaleString('fr-FR', {
+      // Add the current date and time (matching your "Date" column header)
+      params.append('Date', new Date().toLocaleString('fr-FR', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric',
@@ -97,21 +97,24 @@ export default function App() {
         minute: '2-digit',
         second: '2-digit'
       }));
-      data.append('Nom Complet', formData.fullName);
-      data.append('Entreprise', formData.companyName);
-      data.append('Poste', formData.jobTitle);
-      data.append('Email', formData.email);
-      data.append('Téléphone', formData.phone);
-      data.append('Jour', formData.preferredDay);
-      data.append('Heure', formData.preferredTime);
-      data.append('Message', formData.message);
+
+      // Revert to original keys that were working for your script
+      params.append('fullName', formData.fullName);
+      params.append('companyName', formData.companyName);
+      params.append('jobTitle', formData.jobTitle);
+      params.append('email', formData.email);
+      params.append('phone', formData.phone);
+      params.append('preferredDay', formData.preferredDay);
+      params.append('preferredTime', formData.preferredTime);
+      params.append('message', formData.message);
 
       // Send the request to Google Apps Script
-      // Using no-cors because Apps Script redirects can cause CORS issues in some browsers
-      // even if the script itself is public.
       await fetch(SCRIPT_URL, {
         method: 'POST',
-        body: data,
+        body: params.toString(),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
         mode: 'no-cors'
       });
 
