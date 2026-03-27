@@ -149,7 +149,7 @@ export default function App() {
           >
             <div className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
               <img 
-                src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1773918451/int%C3%A9grateur_sage_8_zm0udh.png" 
+                src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1774603917/int%C3%A9grateur_sage_17_suqpic.png" 
                 alt="Thalès Informatique - Intégrateur Sage Maroc" 
                 className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
                 referrerPolicy="no-referrer"
