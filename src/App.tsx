@@ -6,65 +6,22 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  CheckCircle2
+  Calendar, 
+  MapPin, 
+  Database, 
+  Cpu, 
+  BarChart3, 
+  Lightbulb, 
+  CheckCircle2, 
+  ChevronRight,
+  Mail,
+  Globe,
+  Menu,
+  X
 } from 'lucide-react';
-
-const BackgroundEffects = () => {
-  return (
-    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-      {/* Grid Background */}
-      <div className="absolute inset-0 tech-grid opacity-30" />
-      
-      {/* Animated Glows */}
-      <motion.div 
-        animate={{ 
-          scale: [1, 1.2, 1],
-          opacity: [0.1, 0.2, 0.1],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-600/20 blur-[120px] rounded-full" 
-      />
-      <motion.div 
-        animate={{ 
-          scale: [1.2, 1, 1.2],
-          opacity: [0.1, 0.15, 0.1],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-600/20 blur-[120px] rounded-full" 
-      />
-
-      {/* Floating Tech Particles */}
-      {[...Array(15)].map((_, i) => (
-        <motion.div
-          key={i}
-          initial={{ 
-            x: Math.random() * 100 + "%", 
-            y: Math.random() * 100 + "%",
-            opacity: Math.random() * 0.3 + 0.1
-          }}
-          animate={{ 
-            y: [null, "-=100", "+=100"],
-            x: [null, "+=50", "-=50"],
-          }}
-          transition={{ 
-            duration: Math.random() * 20 + 20, 
-            repeat: Infinity, 
-            ease: "linear" 
-          }}
-          className="absolute w-1 h-1 bg-blue-400 rounded-full"
-          style={{
-            boxShadow: '0 0 10px rgba(96, 165, 250, 0.8)'
-          }}
-        />
-      ))}
-    </div>
-  );
-};
 
 export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     fullName: '',
     companyName: '',
@@ -77,56 +34,10 @@ export default function App() {
     agreed: false
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
-
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtJlN22092j2Dqr3DAhojv-_gcLZ8iibGrIEovmUeSzEL6pW03rnDdsRENFRPV-xjM/exec';
-
-    try {
-      // Use URLSearchParams for better compatibility with Google Apps Script
-      const params = new URLSearchParams();
-      
-      // Add the current date and time (matching your "Date" column header)
-      params.append('Date', new Date().toLocaleString('fr-FR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      }));
-
-      // Revert to original keys that were working for your script
-      params.append('fullName', formData.fullName);
-      params.append('companyName', formData.companyName);
-      params.append('jobTitle', formData.jobTitle);
-      params.append('email', formData.email);
-      params.append('phone', formData.phone);
-      params.append('preferredDay', formData.preferredDay);
-      params.append('preferredTime', formData.preferredTime);
-      params.append('message', formData.message);
-
-      // Send the request to Google Apps Script
-      await fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: params.toString(),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        mode: 'no-cors'
-      });
-
-      // Since we use no-cors, we can't read the response, 
-      // but if it doesn't throw, we assume success for this specific use case.
-      setIsSubmitted(true);
-    } catch (err) {
-      console.error('Submission error:', err);
-      setError('Une erreur est survenue lors de l\'envoi. Veuillez réessayer.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Simulate form submission
+    setIsSubmitted(true);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -135,39 +46,220 @@ export default function App() {
     setFormData(prev => ({ ...prev, [name]: val }));
   };
 
+  const scrollToForm = () => {
+    document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen tech-gradient selection:bg-blue-500/30">
-      <BackgroundEffects />
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <img 
+              src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1772030743/logo_thal%C3%A8s_1_tkhzkc.png" 
+              alt="Thalès Informatique" 
+              className="h-10 w-auto"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+            <a href="#about" className="hover:text-blue-600 transition-colors">À propos</a>
+            <a href="#discover" className="hover:text-blue-600 transition-colors">Découvrir</a>
+            <a href="#event" className="hover:text-blue-600 transition-colors">Infos Événement</a>
+            <button 
+              onClick={scrollToForm}
+              className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 rounded-full transition-all shadow-lg shadow-blue-600/20"
+            >
+              S'inscrire
+            </button>
+          </div>
+          <button className="md:hidden text-slate-600">
+            <Menu size={24} />
+          </button>
+        </div>
+      </nav>
+
       {/* Hero Section */}
-      <section className="relative pt-20 pb-10 overflow-hidden flex flex-col items-center">
-        <div className="max-w-4xl mx-auto px-6 relative z-10 w-full flex flex-col items-center">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="relative w-full max-w-3xl"
-          >
-            <div className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
-              <img 
-                src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1774603917/int%C3%A9grateur_sage_17_suqpic.png" 
-                alt="Thalès Informatique - Intégrateur Sage Maroc" 
-                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                referrerPolicy="no-referrer"
-              />
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-20">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/30 blur-[120px] rounded-full" />
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-6">
+                <Calendar size={14} /> Exposition Technologique 2026
+              </div>
+              <h1 className="text-5xl md:text-7xl font-bold leading-[1.1] mb-6 text-slate-900">
+                Rencontrez Thalès Informatique <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">lors de l'événement</span>
+              </h1>
+              <p className="text-lg text-slate-600 mb-8 max-w-lg leading-relaxed">
+                Découvrez comment nos solutions ERP et notre expertise en transformation digitale accélèrent votre croissance et votre efficacité opérationnelle.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <button 
+                  onClick={scrollToForm}
+                  className="group bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-semibold transition-all flex items-center gap-2 shadow-xl shadow-blue-600/25"
+                >
+                  Inscrivez-vous pour nous rendre visite
+                  <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+                <div className="flex items-center gap-4 px-6 py-4 rounded-xl bg-slate-100 border border-slate-200">
+                  <div className="text-sm">
+                    <div className="text-slate-500 font-medium">Dates de l'événement</div>
+                    <div className="font-bold text-slate-900">7 – 9 Avril 2026 à Marrakech</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 px-6 py-4 rounded-xl bg-slate-100 border border-slate-200">
+                  <div className="text-sm">
+                    <div className="text-slate-500 font-medium">Stand</div>
+                    <div className="font-bold text-slate-900">Hall 4 • Stand 4B -30</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
+            >
+              {/* Placeholder for the user-provided design */}
+              <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-2xl relative group">
+                <img 
+                  src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1774610062/int%C3%A9grateur_sage_17_uogemf.png" 
+                  alt="Intégrateur Sage - Thalès Informatique" 
+                  className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              
+              {/* Decorative elements */}
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-blue-500/20 blur-3xl rounded-full" />
+              <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-indigo-500/20 blur-3xl rounded-full" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-3xl">
+            <h2 className="text-blue-600 font-bold text-sm uppercase tracking-[0.2em] mb-4">À propos de l'entreprise</h2>
+            <h3 className="text-3xl md:text-4xl font-bold mb-8 text-slate-900">Pionnier de l'Excellence Digitale</h3>
+            <p className="text-xl text-slate-600 leading-relaxed mb-6">
+              Thalès Informatique est un intégrateur de logiciels de premier plan, spécialisé dans les solutions ERP haute performance et les stratégies de transformation digitale complètes.
+            </p>
+            <p className="text-slate-500 leading-relaxed">
+              Nous permettons aux entreprises de simplifier leurs opérations, d'automatiser les processus complexes et de tirer parti des données. Notre mission est de fournir des solutions de gestion d'entreprise robustes qui s'adaptent aux besoins évolutifs du paysage numérique moderne.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Discover Section */}
+      <section id="discover" className="py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-blue-500 font-bold text-sm uppercase tracking-[0.2em] mb-4">À quoi s'attendre</h2>
+            <h3 className="text-3xl md:text-4xl font-bold">Découvrez sur notre stand</h3>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: <Database className="text-blue-600" />, title: "Solutions ERP", desc: "Systèmes de gestion d'entreprise de nouvelle génération adaptés à votre secteur." },
+              { icon: <Cpu className="text-indigo-600" />, title: "Automatisation", desc: "Réduisez les tâches manuelles et augmentez l'efficacité avec des flux de travail intelligents." },
+              { icon: <BarChart3 className="text-blue-600" />, title: "Données & Reporting", desc: "Analyses en temps réel et business intelligence à portée de main." },
+              { icon: <Lightbulb className="text-indigo-600" />, title: "Conseil Digital", desc: "Accompagnement d'experts dans votre parcours vers la maturité numérique." }
+            ].map((item, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -5 }}
+                className="p-8 glass-card hover:bg-white transition-colors"
+              >
+                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6 border border-blue-100">
+                  {item.icon}
+                </div>
+                <h4 className="text-xl font-bold mb-3 text-slate-900">{item.title}</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Event Info */}
+      <section id="event" className="py-24 bg-blue-50/50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="glass-card p-12 overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-3xl -mr-32 -mt-32 rounded-full" />
+            
+            <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+              <div>
+                <h3 className="text-3xl font-bold mb-6 text-slate-900">Rejoignez-nous à l'exposition</h3>
+                <p className="text-slate-600 mb-8">
+                  Notre équipe d'experts sera disponible pour discuter de vos défis commerciaux spécifiques et vous présenter nos dernières innovations en technologie ERP.
+                </p>
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                      <Calendar className="text-blue-600" size={20} />
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-900">7 – 9 Avril 2026 à Marrakech</div>
+                      <div className="text-sm text-slate-500">Enregistrez les dates dans votre calendrier</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center shrink-0">
+                      <MapPin className="text-indigo-600" size={20} />
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-900">Hall 4 • Stand 4B -30</div>
+                      <div className="text-sm text-slate-500">Marrakech, Maroc</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-blue-600 mb-2">3 Jours</div>
+                  <div className="text-slate-500 text-sm uppercase tracking-widest">D'Innovation</div>
+                </div>
+                <div className="mt-8 pt-8 border-t border-slate-100 grid grid-cols-2 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-slate-900">1500+</div>
+                    <div className="text-xs text-slate-500">Exposants & Startups</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-slate-900">55k+</div>
+                    <div className="text-xs text-slate-500">Visiteurs</div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Registration Form */}
-      <section id="registration-form" className="py-16 bg-slate-900/30">
+      <section id="registration-form" className="py-24 bg-white">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Inscription des Visiteurs</h2>
-            <p className="text-slate-400">Réservez votre place et planifiez une rencontre avec nos experts.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900">Souhaitez vous nous rencontrer ?</h2>
+            <p className="text-slate-500 text-lg">Réservez votre place et planifiez une rencontre avec nos experts.</p>
           </div>
 
-          <div className="glass-card p-8 md:p-12">
+          <div className="form-dark-container p-8 md:p-12">
             <AnimatePresence mode="wait">
               {!isSubmitted ? (
                 <motion.form 
@@ -188,7 +280,7 @@ export default function App() {
                         value={formData.fullName}
                         onChange={handleInputChange}
                         placeholder="Ahmed El Mansouri"
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                        className="form-input-dark"
                       />
                     </div>
                     <div className="space-y-2">
@@ -200,7 +292,7 @@ export default function App() {
                         value={formData.companyName}
                         onChange={handleInputChange}
                         placeholder="Ex: Tech Solutions Maroc"
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                        className="form-input-dark"
                       />
                     </div>
                   </div>
@@ -215,7 +307,7 @@ export default function App() {
                         value={formData.jobTitle}
                         onChange={handleInputChange}
                         placeholder="Directeur IT / Gérant"
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                        className="form-input-dark"
                       />
                     </div>
                     <div className="space-y-2">
@@ -227,13 +319,13 @@ export default function App() {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="a.elmansouri@entreprise.ma"
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                        className="form-input-dark"
                       />
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
+                  <div className="grid md:grid-cols-4 gap-6">
+                    <div className="md:col-span-2 space-y-2">
                       <label className="text-sm font-medium text-slate-300">Numéro de Téléphone</label>
                       <input 
                         required
@@ -242,47 +334,37 @@ export default function App() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         placeholder="+212 6 00 00 00 00"
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                        className="form-input-dark"
                       />
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-300">Jour</label>
-                        <select 
-                          name="preferredDay"
-                          value={formData.preferredDay}
-                          onChange={handleInputChange}
-                          className="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
-                        >
-                          <option value="7 Avril">7 Avril</option>
-                          <option value="8 Avril">8 Avril</option>
-                          <option value="9 Avril">9 Avril</option>
-                        </select>
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-300">Heure</label>
-                        <select 
-                          name="preferredTime"
-                          value={formData.preferredTime}
-                          onChange={handleInputChange}
-                          className="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
-                        >
-                          <option value="10:00">10:00</option>
-                          <option value="10:30">10:30</option>
-                          <option value="11:00">11:00</option>
-                          <option value="11:30">11:30</option>
-                          <option value="12:00">12:00</option>
-                          <option value="12:30">12:30</option>
-                          <option value="13:00">13:00</option>
-                          <option value="13:30">13:30</option>
-                          <option value="14:00">14:00</option>
-                          <option value="14:30">14:30</option>
-                          <option value="15:00">15:00</option>
-                          <option value="15:30">15:30</option>
-                          <option value="16:00">16:00</option>
-                          <option value="16:30">16:30</option>
-                        </select>
-                      </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-slate-300">Jour</label>
+                      <select 
+                        name="preferredDay"
+                        value={formData.preferredDay}
+                        onChange={handleInputChange}
+                        className="form-input-dark appearance-none cursor-pointer"
+                      >
+                        <option value="7 Avril">7 Avril</option>
+                        <option value="8 Avril">8 Avril</option>
+                        <option value="9 Avril">9 Avril</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-slate-300">Heure</label>
+                      <select 
+                        name="preferredTime"
+                        value={formData.preferredTime}
+                        onChange={handleInputChange}
+                        className="form-input-dark appearance-none cursor-pointer"
+                      >
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                      </select>
                     </div>
                   </div>
 
@@ -294,7 +376,7 @@ export default function App() {
                       onChange={handleInputChange}
                       placeholder="Parlez-nous de votre projet..."
                       rows={4}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all resize-none"
+                      className="form-input-dark resize-none"
                     />
                   </div>
 
@@ -306,36 +388,18 @@ export default function App() {
                       name="agreed"
                       checked={formData.agreed}
                       onChange={handleInputChange}
-                      className="mt-1 w-4 h-4 rounded border-white/10 bg-white/5 text-blue-600 focus:ring-blue-500/50"
+                      className="mt-1 w-4 h-4 rounded border-slate-700 bg-[#242e4a] text-blue-600 focus:ring-blue-500/50"
                     />
                     <label htmlFor="agreed" className="text-sm text-slate-400 leading-relaxed">
                       J'accepte d'être contacté par Thalès Informatique concernant ma visite.
                     </label>
                   </div>
 
-                  {error && (
-                    <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
-                      {error}
-                    </div>
-                  )}
-
                   <button 
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-blue-600/20 flex items-center justify-center gap-2"
+                    className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-blue-600/20 flex items-center justify-center gap-2 text-lg"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <motion.div 
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                          className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
-                        />
-                        Envoi en cours...
-                      </>
-                    ) : (
-                      "Confirmer l'Inscription"
-                    )}
+                    Confirmer l'Inscription
                   </button>
                 </motion.form>
               ) : (
@@ -348,13 +412,13 @@ export default function App() {
                   <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                     <CheckCircle2 className="text-green-500" size={40} />
                   </div>
-                  <h3 className="text-2xl font-bold mb-4">Inscription Réussie !</h3>
-                  <p className="text-slate-400 mb-8 max-w-md mx-auto">
-                    Merci pour votre inscription ! Notre équipe vous contactera prochainement à l'adresse {formData.email} pour confirmer votre visite le {formData.preferredDay} à {formData.preferredTime}.
+                  <h3 className="text-2xl font-bold mb-4 text-slate-900">Inscription Réussie !</h3>
+                  <p className="text-slate-600 mb-8 max-w-md mx-auto">
+                    Merci pour votre inscription, {formData.fullName.split(' ')[0]} ! Notre équipe vous contactera prochainement à {formData.email} pour confirmer votre visite le {formData.preferredDay} à {formData.preferredTime}.
                   </p>
                   <button 
                     onClick={() => setIsSubmitted(false)}
-                    className="text-blue-400 hover:text-blue-300 font-semibold text-sm underline underline-offset-4"
+                    className="text-blue-600 hover:text-blue-500 font-semibold text-sm underline underline-offset-4"
                   >
                     Soumettre une autre inscription
                   </button>
@@ -364,6 +428,35 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="py-12 border-t border-slate-200 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="flex items-center gap-2">
+              <img 
+                src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1772030743/logo_thal%C3%A8s_1_tkhzkc.png" 
+                alt="Thalès Informatique" 
+                className="h-8 w-auto"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            
+            <div className="flex items-center gap-8 text-sm text-slate-500">
+              <a href="https://www.thales.ma" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
+                <Globe size={16} /> www.thales.ma
+              </a>
+              <a href="mailto:info@thales.ma" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
+                <Mail size={16} /> info@thales.ma
+              </a>
+            </div>
+            
+            <div className="text-xs text-slate-400">
+              © 2026 Thalès Informatique. Tous droits réservés.
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

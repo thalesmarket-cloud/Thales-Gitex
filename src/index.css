@@ -7,34 +7,23 @@
 
 @layer base {
   body {
-    @apply font-sans antialiased bg-slate-950 text-slate-50;
+    @apply font-sans antialiased bg-white text-slate-900;
   }
 }
 
 .tech-gradient {
-  background: radial-gradient(circle at top right, rgba(30, 64, 175, 0.2), transparent),
-              radial-gradient(circle at bottom left, rgba(15, 23, 42, 1), rgba(30, 58, 138, 0.3));
-  position: relative;
+  background: radial-gradient(circle at top right, rgba(30, 64, 175, 0.05), transparent),
+              radial-gradient(circle at bottom left, rgba(248, 250, 252, 1), rgba(219, 234, 254, 0.3));
 }
 
-.tech-grid {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 50px 50px;
-  mask-image: radial-gradient(circle at center, black, transparent 80%);
+.form-dark-container {
+  @apply bg-[#1a233a] border border-slate-700/50 rounded-2xl shadow-2xl;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0) translateX(0); }
-  25% { transform: translateY(-20px) translateX(10px); }
-  50% { transform: translateY(-10px) translateX(20px); }
-  75% { transform: translateY(10px) translateX(-10px); }
-}
-
-.animate-float {
-  animation: float 15s infinite ease-in-out;
+.form-input-dark {
+  @apply w-full bg-[#242e4a] border border-slate-600/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-white placeholder:text-slate-500;
 }
 
 .glass-card {
-  @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+  @apply bg-white/70 backdrop-blur-md border border-slate-200 rounded-2xl shadow-sm;
 }
