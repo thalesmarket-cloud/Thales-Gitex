@@ -16,12 +16,12 @@
               radial-gradient(circle at bottom left, rgba(248, 250, 252, 1), rgba(219, 234, 254, 0.3));
 }
 
-.form-dark-container {
-  @apply bg-[#1a233a] border border-slate-700/50 rounded-2xl shadow-2xl;
+.form-container {
+  @apply bg-white border border-slate-200 rounded-2xl shadow-xl;
 }
 
-.form-input-dark {
-  @apply w-full bg-[#242e4a] border border-slate-600/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-white placeholder:text-slate-500;
+.form-input {
+  @apply w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-slate-900 placeholder:text-slate-400;
 }
 
 .glass-card {

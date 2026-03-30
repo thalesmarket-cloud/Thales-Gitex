@@ -9,7 +9,7 @@ import {
   Calendar, 
   MapPin, 
   Database, 
-  Cpu, 
+  Users, 
   BarChart3, 
   Lightbulb, 
   CheckCircle2, 
@@ -59,12 +59,11 @@ export default function App() {
             <img 
               src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1772030743/logo_thal%C3%A8s_1_tkhzkc.png" 
               alt="Thalès Informatique" 
-              className="h-10 w-auto"
+              className="h-16 w-auto"
               referrerPolicy="no-referrer"
             />
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-            <a href="#about" className="hover:text-blue-600 transition-colors">À propos</a>
             <a href="#discover" className="hover:text-blue-600 transition-colors">Découvrir</a>
             <a href="#event" className="hover:text-blue-600 transition-colors">Infos Événement</a>
             <button 
@@ -150,22 +149,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-24 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="max-w-3xl">
-            <h2 className="text-blue-600 font-bold text-sm uppercase tracking-[0.2em] mb-4">À propos de l'entreprise</h2>
-            <h3 className="text-3xl md:text-4xl font-bold mb-8 text-slate-900">Pionnier de l'Excellence Digitale</h3>
-            <p className="text-xl text-slate-600 leading-relaxed mb-6">
-              Thalès Informatique est un intégrateur de logiciels de premier plan, spécialisé dans les solutions ERP haute performance et les stratégies de transformation digitale complètes.
-            </p>
-            <p className="text-slate-500 leading-relaxed">
-              Nous permettons aux entreprises de simplifier leurs opérations, d'automatiser les processus complexes et de tirer parti des données. Notre mission est de fournir des solutions de gestion d'entreprise robustes qui s'adaptent aux besoins évolutifs du paysage numérique moderne.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Discover Section */}
       <section id="discover" className="py-24">
         <div className="max-w-7xl mx-auto px-6">
@@ -177,7 +160,7 @@ export default function App() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: <Database className="text-blue-600" />, title: "Solutions ERP", desc: "Systèmes de gestion d'entreprise de nouvelle génération adaptés à votre secteur." },
-              { icon: <Cpu className="text-indigo-600" />, title: "Automatisation", desc: "Réduisez les tâches manuelles et augmentez l'efficacité avec des flux de travail intelligents." },
+              { icon: <Users className="text-indigo-600" />, title: "Ateliers ERP", desc: "Participez à nos sessions interactives pour découvrir comment optimiser vos processus métiers." },
               { icon: <BarChart3 className="text-blue-600" />, title: "Données & Reporting", desc: "Analyses en temps réel et business intelligence à portée de main." },
               { icon: <Lightbulb className="text-indigo-600" />, title: "Conseil Digital", desc: "Accompagnement d'experts dans votre parcours vers la maturité numérique." }
             ].map((item, i) => (
@@ -259,7 +242,7 @@ export default function App() {
             <p className="text-slate-500 text-lg">Réservez votre place et planifiez une rencontre avec nos experts.</p>
           </div>
 
-          <div className="form-dark-container p-8 md:p-12">
+          <div className="form-container p-8 md:p-12">
             <AnimatePresence mode="wait">
               {!isSubmitted ? (
                 <motion.form 
@@ -272,7 +255,7 @@ export default function App() {
                 >
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-300">Nom Complet</label>
+                      <label className="text-sm font-medium text-slate-700">Nom Complet</label>
                       <input 
                         required
                         type="text" 
@@ -280,11 +263,11 @@ export default function App() {
                         value={formData.fullName}
                         onChange={handleInputChange}
                         placeholder="Ahmed El Mansouri"
-                        className="form-input-dark"
+                        className="form-input"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-300">Nom de l'Entreprise</label>
+                      <label className="text-sm font-medium text-slate-700">Nom de l'Entreprise</label>
                       <input 
                         required
                         type="text" 
@@ -292,14 +275,14 @@ export default function App() {
                         value={formData.companyName}
                         onChange={handleInputChange}
                         placeholder="Ex: Tech Solutions Maroc"
-                        className="form-input-dark"
+                        className="form-input"
                       />
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-300">Fonction / Poste</label>
+                      <label className="text-sm font-medium text-slate-700">Fonction / Poste</label>
                       <input 
                         required
                         type="text" 
@@ -307,11 +290,11 @@ export default function App() {
                         value={formData.jobTitle}
                         onChange={handleInputChange}
                         placeholder="Directeur IT / Gérant"
-                        className="form-input-dark"
+                        className="form-input"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-300">Adresse E-mail</label>
+                      <label className="text-sm font-medium text-slate-700">Adresse E-mail</label>
                       <input 
                         required
                         type="email" 
@@ -319,14 +302,14 @@ export default function App() {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="a.elmansouri@entreprise.ma"
-                        className="form-input-dark"
+                        className="form-input"
                       />
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-4 gap-6">
                     <div className="md:col-span-2 space-y-2">
-                      <label className="text-sm font-medium text-slate-300">Numéro de Téléphone</label>
+                      <label className="text-sm font-medium text-slate-700">Numéro de Téléphone</label>
                       <input 
                         required
                         type="tel" 
@@ -334,16 +317,16 @@ export default function App() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         placeholder="+212 6 00 00 00 00"
-                        className="form-input-dark"
+                        className="form-input"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-300">Jour</label>
+                      <label className="text-sm font-medium text-slate-700">Jour</label>
                       <select 
                         name="preferredDay"
                         value={formData.preferredDay}
                         onChange={handleInputChange}
-                        className="form-input-dark appearance-none cursor-pointer"
+                        className="form-input appearance-none cursor-pointer"
                       >
                         <option value="7 Avril">7 Avril</option>
                         <option value="8 Avril">8 Avril</option>
@@ -351,12 +334,12 @@ export default function App() {
                       </select>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-300">Heure</label>
+                      <label className="text-sm font-medium text-slate-700">Heure</label>
                       <select 
                         name="preferredTime"
                         value={formData.preferredTime}
                         onChange={handleInputChange}
-                        className="form-input-dark appearance-none cursor-pointer"
+                        className="form-input appearance-none cursor-pointer"
                       >
                         <option value="09:00">09:00</option>
                         <option value="10:00">10:00</option>
@@ -369,14 +352,14 @@ export default function App() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-slate-300">Message (Optionnel)</label>
+                    <label className="text-sm font-medium text-slate-700">Message (Optionnel)</label>
                     <textarea 
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
                       placeholder="Parlez-nous de votre projet..."
                       rows={4}
-                      className="form-input-dark resize-none"
+                      className="form-input resize-none"
                     />
                   </div>
 
@@ -388,9 +371,9 @@ export default function App() {
                       name="agreed"
                       checked={formData.agreed}
                       onChange={handleInputChange}
-                      className="mt-1 w-4 h-4 rounded border-slate-700 bg-[#242e4a] text-blue-600 focus:ring-blue-500/50"
+                      className="mt-1 w-4 h-4 rounded border-slate-300 bg-slate-50 text-blue-600 focus:ring-blue-500/50"
                     />
-                    <label htmlFor="agreed" className="text-sm text-slate-400 leading-relaxed">
+                    <label htmlFor="agreed" className="text-sm text-slate-500 leading-relaxed">
                       J'accepte d'être contacté par Thalès Informatique concernant ma visite.
                     </label>
                   </div>
@@ -437,7 +420,7 @@ export default function App() {
               <img 
                 src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1772030743/logo_thal%C3%A8s_1_tkhzkc.png" 
                 alt="Thalès Informatique" 
-                className="h-8 w-auto"
+                className="h-12 w-auto"
                 referrerPolicy="no-referrer"
               />
             </div>
