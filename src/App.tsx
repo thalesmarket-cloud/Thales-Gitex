@@ -34,10 +34,29 @@ export default function App() {
     agreed: false
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    setIsSubmitted(true);
+    
+    // REMPLACEZ CETTE URL PAR VOTRE LIEN /exec DE GOOGLE SHEETS
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwtJlN22092j2Dqr3DAhojv-_gcLZ8iibGrIEovmUeSzEL6pW03rnDdsRENFRPV-xjM/exec";
+
+    try {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Important pour Google Apps Script
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      // Avec mode: 'no-cors', on ne peut pas vérifier response.ok
+      // On assume que ça a fonctionné si aucune erreur n'est levée
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('Une erreur est survenue lors de l\'inscription. Veuillez vérifier votre connexion.');
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
