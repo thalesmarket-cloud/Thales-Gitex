@@ -14,6 +14,7 @@ import {
   Lightbulb, 
   CheckCircle2, 
   ChevronRight,
+  Loader2,
   Mail,
   Globe,
   Menu,
@@ -22,6 +23,7 @@ import {
 
 export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     companyName: '',
@@ -36,12 +38,15 @@ export default function App() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
     
     // REMPLACEZ CETTE URL PAR VOTRE LIEN /exec DE GOOGLE SHEETS
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw-gmNXPUM2nf2MjHeowmx7uCBkZ5cqI0SnY0A-VYx3_eQ3_K4FzlBbJzWDJRwplvSg/exec";
 
     try {
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
+      await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors', // Important pour Google Apps Script
         headers: {
@@ -56,6 +61,8 @@ export default function App() {
     } catch (error) {
       console.error('Submission error:', error);
       alert('Une erreur est survenue lors de l\'inscription. Veuillez vérifier votre connexion.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -399,9 +406,21 @@ export default function App() {
 
                   <button 
                     type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-blue-600/20 flex items-center justify-center gap-2 text-lg"
+                    disabled={isSubmitting}
+                    className={`w-full text-white font-bold py-4 rounded-xl transition-all shadow-xl flex items-center justify-center gap-2 text-lg ${
+                      isSubmitting 
+                        ? 'bg-blue-400 cursor-not-allowed' 
+                        : 'bg-blue-600 hover:bg-blue-500 shadow-blue-600/20'
+                    }`}
                   >
-                    Confirmer l'Inscription
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="animate-spin" size={20} />
+                        Envoi en cours...
+                      </>
+                    ) : (
+                      "Confirmer l'Inscription"
+                    )}
                   </button>
                 </motion.form>
               ) : (
