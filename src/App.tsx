@@ -38,7 +38,7 @@ export default function App() {
     e.preventDefault();
     
     // REMPLACEZ CETTE URL PAR VOTRE LIEN /exec DE GOOGLE SHEETS
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwtJlN22092j2Dqr3DAhojv-_gcLZ8iibGrIEovmUeSzEL6pW03rnDdsRENFRPV-xjM/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw-gmNXPUM2nf2MjHeowmx7uCBkZ5cqI0SnY0A-VYx3_eQ3_K4FzlBbJzWDJRwplvSg/exec";
 
     try {
       const response = await fetch(GOOGLE_SCRIPT_URL, {
@@ -448,8 +448,8 @@ export default function App() {
               <a href="https://www.thales.ma" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
                 <Globe size={16} /> www.thales.ma
               </a>
-              <a href="mailto:info@thales.ma" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
-                <Mail size={16} /> info@thales.ma
+              <a href="mailto:contact@thales.ma" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
+                <Mail size={16} /> contact@thales.ma
               </a>
             </div>
             
