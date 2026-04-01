@@ -257,7 +257,7 @@ export default function App() {
       <section id="registration-form" className="py-24 bg-white">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900">Souhaitez vous nous rencontrer ?</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900">Obtenez votre badge gratuitement</h2>
             <p className="text-slate-500 text-lg">Réservez votre place et planifiez une rencontre avec nos experts.</p>
           </div>
 
