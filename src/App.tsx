@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Calendar, 
@@ -32,6 +32,7 @@ import {
 export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [formData, setFormData] = useState({
     fullName: '',
     companyName: '',
@@ -43,6 +44,23 @@ export default function App() {
     message: '',
     agreed: false
   });
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setCurrentPath(window.location.pathname);
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    
+    // Check if we are already on the thankyoupage on load
+    if (window.location.pathname === '/thankyoupage') {
+      setIsSubmitted(true);
+    }
+
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,12 +84,22 @@ export default function App() {
       // Avec mode: 'no-cors', on ne peut pas vérifier response.ok
       // On assume que ça a fonctionné si aucune erreur n'est levée
       setIsSubmitted(true);
+      
+      // Update URL to /thankyoupage for pixel tracking
+      window.history.pushState({}, '', '/thankyoupage');
+      setCurrentPath('/thankyoupage');
     } catch (error) {
       console.error('Submission error:', error);
       alert('Une erreur est survenue lors de l\'inscription. Veuillez vérifier votre connexion.');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleResetForm = () => {
+    setIsSubmitted(false);
+    window.history.pushState({}, '', '/');
+    setCurrentPath('/');
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -518,10 +546,10 @@ export default function App() {
                   </div>
                   <h3 className="text-2xl font-bold mb-4 text-slate-900">Inscription Réussie !</h3>
                   <p className="text-slate-600 mb-8 max-w-md mx-auto">
-                    Merci pour votre inscription, {formData.fullName.split(' ')[0]} ! Notre équipe vous contactera prochainement à {formData.email} pour confirmer votre visite le {formData.preferredDay} à {formData.preferredTime}.
+                    Merci pour votre inscription ! Notre équipe vous contactera prochainement pour confirmer votre visite.
                   </p>
                   <button 
-                    onClick={() => setIsSubmitted(false)}
+                    onClick={handleResetForm}
                     className="text-blue-600 hover:text-blue-500 font-semibold text-sm underline underline-offset-4"
                   >
                     Soumettre une autre inscription
