@@ -17,6 +17,10 @@ import {
   Loader2,
   Mail,
   Globe,
+  Cloud,
+  MessageSquare,
+  Cpu,
+  UserCheck,
   Menu,
   X
 } from 'lucide-react';
@@ -179,16 +183,16 @@ export default function App() {
       <section id="discover" className="py-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-blue-500 font-bold text-sm uppercase tracking-[0.2em] mb-4">À quoi s'attendre</h2>
-            <h3 className="text-3xl md:text-4xl font-bold">Découvrez sur notre stand</h3>
+            <h2 className="text-blue-500 font-bold text-sm uppercase tracking-[0.2em] mb-4">Pourquoi nous rencontrer ?</h2>
+            <h3 className="text-3xl md:text-4xl font-bold">Objectif : donner une vraie raison de cliquer</h3>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: <Database className="text-blue-600" />, title: "Solutions ERP", desc: "Systèmes de gestion d'entreprise de nouvelle génération adaptés à votre secteur." },
-              { icon: <Users className="text-indigo-600" />, title: "Ateliers ERP", desc: "Participez à nos sessions interactives pour découvrir comment optimiser vos processus métiers." },
-              { icon: <BarChart3 className="text-blue-600" />, title: "Données & Reporting", desc: "Analyses en temps réel et business intelligence à portée de main." },
-              { icon: <Lightbulb className="text-indigo-600" />, title: "Conseil Digital", desc: "Accompagnement d'experts dans votre parcours vers la maturité numérique." }
+              { icon: <Cloud className="text-blue-600" />, title: "Solutions ERP & Cloud", desc: "Découvrez nos solutions ERP & Cloud de nouvelle génération." },
+              { icon: <MessageSquare className="text-indigo-600" />, title: "Transformation Digitale", desc: "Échangez avec nos experts sur vos projets de transformation digitale." },
+              { icon: <Cpu className="text-blue-600" />, title: "Démos Exclusives", desc: "Assistez à des démos exclusives (IA, automatisation…) sur notre stand." },
+              { icon: <UserCheck className="text-indigo-600" />, title: "Conseils Personnalisés", desc: "Bénéficiez de conseils personnalisés pour optimiser vos processus." }
             ].map((item, i) => (
               <motion.div 
                 key={i}
@@ -367,12 +371,14 @@ export default function App() {
                         onChange={handleInputChange}
                         className="form-input appearance-none cursor-pointer"
                       >
-                        <option value="09:00">09:00</option>
                         <option value="10:00">10:00</option>
                         <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
                         <option value="14:00">14:00</option>
                         <option value="15:00">15:00</option>
                         <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
                       </select>
                     </div>
                   </div>
