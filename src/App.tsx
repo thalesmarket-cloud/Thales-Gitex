@@ -123,7 +123,7 @@ export default function App() {
               </div>
               <h1 className="text-5xl md:text-7xl font-bold leading-[1.1] mb-6 text-slate-900">
                 Rencontrez Thalès Informatique <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">lors de l'événement</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">lors du GITEX Africa Morocco</span>
               </h1>
               <p className="text-lg text-slate-600 mb-8 max-w-lg leading-relaxed">
                 Découvrez comment nos solutions ERP et notre expertise en transformation digitale accélèrent votre croissance et votre efficacité opérationnelle.
