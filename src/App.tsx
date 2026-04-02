@@ -21,6 +21,10 @@ import {
   MessageSquare,
   Cpu,
   UserCheck,
+  AlertTriangle,
+  Zap,
+  Target,
+  TrendingUp,
   Menu,
   X
 } from 'lucide-react';
@@ -179,33 +183,28 @@ export default function App() {
         </div>
       </section>
 
-      {/* Discover Section */}
-      <section id="discover" className="py-24">
+      {/* Call to Action Section */}
+      <section id="discover" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-blue-500 font-bold text-sm uppercase tracking-[0.2em] mb-4">Pourquoi nous rencontrer ?</h2>
-            <h3 className="text-3xl md:text-4xl font-bold">Objectif : donner une vraie raison de cliquer</h3>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: <Cloud className="text-blue-600" />, title: "Solutions ERP & Cloud", desc: "Découvrez nos solutions ERP & Cloud de nouvelle génération." },
-              { icon: <MessageSquare className="text-indigo-600" />, title: "Transformation Digitale", desc: "Échangez avec nos experts sur vos projets de transformation digitale." },
-              { icon: <Cpu className="text-blue-600" />, title: "Démos Exclusives", desc: "Assistez à des démos exclusives (IA, automatisation…) sur notre stand." },
-              { icon: <UserCheck className="text-indigo-600" />, title: "Conseils Personnalisés", desc: "Bénéficiez de conseils personnalisés pour optimiser vos processus." }
-            ].map((item, i) => (
-              <motion.div 
-                key={i}
-                whileHover={{ y: -5 }}
-                className="p-8 glass-card hover:bg-white transition-colors"
+          <div className="relative rounded-[3rem] overflow-hidden bg-slate-900 p-12 md:p-16 text-center">
+            <div className="absolute inset-0 opacity-30">
+              <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600 blur-[120px] rounded-full" />
+              <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-600 blur-[120px] rounded-full" />
+            </div>
+            
+            <div className="relative z-10 max-w-3xl mx-auto">
+              <h4 className="text-3xl md:text-4xl font-bold mb-6 text-white">Et si on en parlait ensemble ?</h4>
+              <p className="text-slate-400 text-lg mb-10 leading-relaxed">
+                Nos experts seront présents au GITEX Africa Morocco 2026 pour analyser vos enjeux spécifiques et vous proposer des solutions concrètes.
+              </p>
+              <button 
+                onClick={scrollToForm}
+                className="group bg-white hover:bg-blue-50 text-slate-900 px-10 py-5 rounded-2xl font-bold transition-all flex items-center gap-3 mx-auto shadow-xl"
               >
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6 border border-blue-100">
-                  {item.icon}
-                </div>
-                <h4 className="text-xl font-bold mb-3 text-slate-900">{item.title}</h4>
-                <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
-              </motion.div>
-            ))}
+                Planifiez votre rendez-vous expert
+                <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
