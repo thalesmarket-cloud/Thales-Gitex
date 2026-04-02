@@ -183,24 +183,35 @@ export default function App() {
         </div>
       </section>
 
-      {/* ERP Capabilities Section */}
-      <section className="py-16 bg-slate-50 border-y border-slate-200">
+      {/* Solutions Presentation Section */}
+      <section className="py-24 bg-slate-50 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h3 className="text-3xl md:text-4xl font-bold text-slate-900">Ce que nous vous présentons</h3>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-8">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100"
+              className="bg-white p-10 rounded-[2rem] shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 group"
             >
-              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6 text-blue-600">
-                <Database size={24} />
+              <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-8 text-blue-600 group-hover:scale-110 transition-transform">
+                <Database size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-slate-900">Gestion Intégrée</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Centralisez vos finances, RH, achats et stocks dans une solution unique pour une vision à 360° de votre entreprise.
+              <h4 className="text-2xl font-bold mb-4 text-slate-900">Solutions ERP</h4>
+              <p className="text-slate-600 mb-6 leading-relaxed">
+                Une expertise reconnue sur les solutions leaders du marché pour structurer votre croissance.
               </p>
+              <div className="flex flex-wrap gap-2">
+                {['Sage', 'Factorial', 'GMAO DimoMaint', 'Eloficash'].map((tag) => (
+                  <span key={tag} className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded-full border border-slate-200">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </motion.div>
 
             <motion.div 
@@ -208,15 +219,22 @@ export default function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100"
+              className="bg-white p-10 rounded-[2rem] shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 group"
             >
-              <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-6 text-indigo-600">
-                <BarChart3 size={24} />
+              <div className="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center mb-8 text-indigo-600 group-hover:scale-110 transition-transform">
+                <Cpu size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-slate-900">Pilotage en Temps Réel</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Accédez à des tableaux de bord dynamiques et des KPIs précis pour prendre des décisions basées sur des données fiables.
+              <h4 className="text-2xl font-bold mb-4 text-slate-900">Intelligence Artificielle</h4>
+              <p className="text-slate-600 mb-6 leading-relaxed">
+                L'innovation au service de votre productivité grâce à nos agents intelligents.
               </p>
+              <div className="flex flex-wrap gap-2">
+                {['Builder AI', 'Workflow AI'].map((tag) => (
+                  <span key={tag} className="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-semibold rounded-full border border-indigo-100">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </motion.div>
 
             <motion.div 
@@ -224,15 +242,20 @@ export default function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100"
+              className="bg-white p-10 rounded-[2rem] shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 group"
             >
-              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6 text-blue-600">
-                <Zap size={24} />
+              <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-8 text-blue-600 group-hover:scale-110 transition-transform">
+                <Cloud size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-slate-900">Optimisation des Processus</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Automatisez vos workflows répétitifs et gagnez en productivité tout en réduisant les risques d'erreurs humaines.
+              <h4 className="text-2xl font-bold mb-4 text-slate-900">Cloud & Infrastructure</h4>
+              <p className="text-slate-600 mb-6 leading-relaxed">
+                Des infrastructures sécurisées et évolutives pour héberger vos applications critiques.
               </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded-full border border-blue-100">
+                  Hébergement & Sécurité
+                </span>
+              </div>
             </motion.div>
           </div>
         </div>
