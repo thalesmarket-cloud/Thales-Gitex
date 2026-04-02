@@ -183,6 +183,61 @@ export default function App() {
         </div>
       </section>
 
+      {/* ERP Capabilities Section */}
+      <section className="py-16 bg-slate-50 border-y border-slate-200">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100"
+            >
+              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6 text-blue-600">
+                <Database size={24} />
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-slate-900">Gestion Intégrée</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Centralisez vos finances, RH, achats et stocks dans une solution unique pour une vision à 360° de votre entreprise.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100"
+            >
+              <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-6 text-indigo-600">
+                <BarChart3 size={24} />
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-slate-900">Pilotage en Temps Réel</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Accédez à des tableaux de bord dynamiques et des KPIs précis pour prendre des décisions basées sur des données fiables.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100"
+            >
+              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6 text-blue-600">
+                <Zap size={24} />
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-slate-900">Optimisation des Processus</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Automatisez vos workflows répétitifs et gagnez en productivité tout en réduisant les risques d'erreurs humaines.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Call to Action Section */}
       <section id="discover" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
